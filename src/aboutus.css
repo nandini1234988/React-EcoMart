@@ -1,0 +1,81 @@
+/* AboutUs.css */
+
+/* General Page Styles */
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+  
+  /* Header Section */
+  .about-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .about-header h2 {
+    font-size: 2.5rem;
+    color: #007b5e;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .about-subheading {
+    font-size: 1.2rem;
+    color: #555;
+    font-style: italic;
+  }
+  
+  /* About Content Layout */
+  .about-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  
+  /* About Text */
+  .about-text {
+    flex: 1;
+    min-width: 280px;
+    line-height: 1.6;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .about-text p {
+    margin-bottom: 15px;
+  }
+  
+  /* About Image */
+  .about-image {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+  }
+  
+  .about-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+  }
+  
+  @media (max-width: 768px) {
+    .about-content {
+      flex-direction: column;
+    }
+  
+    .about-text {
+      margin-bottom: 20px;
+    }
+  
+    .about-image img {
+      max-width: 100%;
+    }
+  }
+  

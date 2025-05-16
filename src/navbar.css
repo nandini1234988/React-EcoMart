@@ -1,0 +1,86 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f9f9f9;
+  color: #333;
+  padding-top: 80px;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, #0f2027, #203a43, #2c5364); /* Attractive gradient */
+  padding: 15px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+/* Logo */
+.navbar .logo {
+  font-size: 26px;
+  font-weight: 800;
+  color: #00ffd5; /* Neon teal for pop */
+  margin-right: 50px;
+  text-shadow: 0 0 5px rgba(0, 255, 213, 0.6);
+}
+
+/* Navbar links */
+.navbar .navbar-links {
+  display: flex;
+  gap: 25px;
+}
+
+.navbar .navbar-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  background-color: transparent;
+}
+
+/* Icon style */
+.navbar .navbar-link .icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.navbar .navbar-link:hover {
+  background: linear-gradient(90deg, #ff8a00, #e52e71); /* Orange-pink gradient */
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 138, 0, 0.5);
+}
+
+
+/* Content wrapper */
+.main-content {
+  padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar .navbar-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

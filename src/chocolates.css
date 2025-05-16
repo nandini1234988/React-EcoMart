@@ -1,0 +1,100 @@
+.choco-section {
+  padding: 20px;
+  padding-top: 60px;  /* Adjust to navbar height */
+  background-color: #f9f9f9;
+}
+
+
+  
+  .choco-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .choco-scroll-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+  }
+  
+  .choco-card {
+    flex: 0 0 calc(20% - 16px);
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s;
+    box-sizing: border-box;
+  }
+  
+  .choco-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .choco-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+  
+  .choco-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+  }
+  
+  .choco-price {
+    font-size: 1rem;
+    color: #e67e22;
+    margin-top: 5px;
+  }
+  
+  @media (max-width: 1200px) {
+    .choco-card {
+      flex: 0 0 calc(20% - 16px);
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .choco-card {
+      flex: 0 0 calc(33.33% - 16px);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .choco-card {
+      flex: 0 0 calc(50% - 16px);
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .choco-card {
+      flex: 0 0 100%;
+    }
+  }
+
+  /* Button Style for Chocolates */
+.choco-card button {
+  padding: 10px 20px;
+  background-color: #A0522D;   /* Sienna—rich, chocolate-like */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.choco-card button:hover {
+  background-color: #8B4513;   /* SaddleBrown—darker on hover */
+  transform: scale(1.05);      /* slight pop on hover */
+}
+
+  

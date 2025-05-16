@@ -1,0 +1,36 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const linkStyle = {
+  color: 'white',
+  textDecoration: 'none',
+  fontWeight: '500'
+};
+
+function MyStyles() {
+  return (
+    <nav style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: '#2e7d32',
+      padding: '10px 20px',
+      color: 'white'
+    }}>
+      <div style={{ fontSize: '24px', fontWeight: 'bold' }}>BigBasket Clone</div>
+      <div style={{ display: 'flex', gap: '20px' }}>
+        <Link style={linkStyle} to="/Veg">Veg</Link>
+        <Link style={linkStyle} to="/NonVeg">Non-Veg</Link>
+        <Link style={linkStyle} to="/Milk">Milk</Link>
+        <Link style={linkStyle} to="/Chocolates">Chocolates</Link>
+        <Link style={linkStyle} to="/Cart">Cart</Link>
+        <Link style={linkStyle} to="/Orders">Orders</Link>
+        <Link style={linkStyle} to="/AboutUs">About</Link>
+        <Link style={linkStyle} to="/ContactUs">Contact</Link>
+        <Link style={linkStyle} to="/Signing">Sign In</Link>
+      </div>
+    </nav>
+  );
+}
+
+export default MyStyles;
