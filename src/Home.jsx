@@ -1,5 +1,5 @@
 import React from 'react';
-import './Home.css';
+import './home.css';
 
 const categories = [
   { name: 'Vegetables', image: '/images/vegetables.jpg' },
