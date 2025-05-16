@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './nonveg.css';
+import './nonVeg.css';
 import { AddToCart } from './store';
 
 function NonVeg() {
