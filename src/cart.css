@@ -1,250 +1,288 @@
-/* Reset and Base */
-body, html {
-    height: 100%;
-    margin: 0;
-    background-color: #f9fafb;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Wrapper */
-.page-wrapper {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Cart Container */
+/* Main Cart Container */
 .cart-container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
+  flex-direction: column;
   min-height: 100vh;
+  padding: 2rem;
+
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  animation: fadeIn 0.6s ease;
 }
 
+/* Title */
 .cart-title {
-  font-size: 28px;
+  font-size: 2.5rem;
+  color: #d63384;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 1px 1px 2px #c0fffc;
+}
+
+/* Cart Item Box */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: fadeSlide 0.4s ease;
+}
+
+.cart-item:hover {
+  transform: scale(1.015);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Item Details */
+.item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1.1rem;
+}
+
+/* Quantity Controls */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quantity-control button {
+  padding: 6px 12px;
+ 
   font-weight: bold;
-  color: #333333;
-  margin-bottom: 1.5rem;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.quantity-control button:hover {
+  background-color: #63e6be;
+}
+
+.qty-display {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #444;
+  min-width: 32px;
   text-align: center;
 }
 
-.cart-items {
-  margin-bottom: 2rem;
+/* Remove Button */
+.remove-btn {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-/* Headings */
-.cart-container h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #1e293b;
-    margin-bottom: 30px;
-}
-
-.cart-container h3, h4 {
-    color: #334155;
-}
-
-/* Cart List */
-.cart-container ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 25px;
-}
-
-.cart-container li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f1f5f9;
-    padding: 15px 20px;
-    margin-bottom: 12px;
-    border-radius: 10px;
-}
-
-.item-actions button {
-    background-color: #38bdf8;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    margin-left: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.item-actions button:hover {
-    background-color: #0284c7;
+.remove-btn:hover {
+  background-color: #e03131;
 }
 
 /* Discount Buttons */
 .discount-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 20px;
+  margin-top: 1.5rem;
+  text-align: center;
 }
 
 .discount-buttons button {
-    background-color: #22c55e;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  margin: 0.5rem;
+  background-color: #d0bfff;
+  color: #4b0082;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .discount-buttons button:hover {
-    background-color: #15803d;
+  background-color: #c77dff;
+  transform: scale(1.05);
 }
 
-/* Totals */
+/* Totals Section */
 .totals {
-    background-color: #f8fafc;
-    padding: 25px;
-    border-radius: 12px;
+  background-color: #f8edeb;
+  padding: 2rem;
+  margin-top: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
 }
 
-.totals input[type="text"], .email-box input[type="email"] {
-    width: 100%;
-    max-width: 300px;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
+.totals h4 {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
 }
 
-/* Email */
-.email-box {
-    margin-top: 20px;
-    text-align: center;
+/* Inputs */
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+  padding: 0.6rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 300px;
 }
 
-/* Payment Section */
+/* Email Label */
+.email-box label {
+  display: block;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+/* Payment Methods */
 .payment-method {
-    margin-top: 30px;
-    text-align: center;
+  margin-top: 1.5rem;
 }
 
-.payment-method h3 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+.payment-method button {
+  margin-right: 1rem;
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #ffe066;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
-/* Payment Buttons */
-.payment-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 15px;
+.payment-method button:hover {
+  background-color: #ffd43b;
+  transform: translateY(-2px);
 }
 
-.qr-btn, .card-btn {
-    padding: 14px 24px;
-    font-size: 1.1rem;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+/* QR and Card Section */
+.qr-section,
+.card-section {
+  margin-top: 1.5rem;
+  background-color: #e0f7fa;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeIn 0.4s ease;
 }
 
-.qr-btn {
-    background-color: #4caf50;
+.qr-section p {
+  margin-top: 0.5rem;
+  color: #00796b;
+  font-weight: bold;
 }
 
-.qr-btn:hover {
-    background-color: #388e3c;
-}
-
-.card-btn {
-    background-color: #2196f3;
-}
-
-.card-btn:hover {
-    background-color: #1976d2;
-}
-
-/* QR + Card Sections */
-.qr-section, .card-section {
-    margin-top: 25px;
-    text-align: center;
-}
-
-.card-section form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.card-section input {
-    width: 250px;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-.card-section button {
-    background-color: #26a7de;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.card-section button:hover {
-    background-color: #0ea5e9;
+.card-section form > div {
+  margin: 0.75rem 0;
 }
 
 /* Purchase Button */
 .purchase-btn {
-    display: block;
-    width: 100%;
-    padding: 12px 0;
-    background-color: hsl(307, 86%, 70%);
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-align: center;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 30px;
-    transition: background-color 0.3s ease;
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .purchase-btn:hover {
-    background-color: #ec4899;
+  background-color: #ff1493;
+  transform: scale(1.03);
 }
 
-/* Responsive */
+/* Empty Cart Message */
+.empty-msg {
+  font-size: 1.8rem;
+  color: #555;
+  text-align: center;
+  margin-top: 100px;
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+  width: auto;
+}
+
+/* Redirect Message */
+.message-box {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #b30059;
+  margin-top: 2rem;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .discount-buttons, .payment-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .qr-btn, .card-btn {
-        width: 100%;
-    }
+  .totals {
+    padding: 1rem;
+  }
 
-    .card-section input {
-        width: 100%;
-        max-width: 300px;
-    }
+  .purchase-btn {
+    width: 100%;
+  }
+
+  .discount-buttons button {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
 }
+

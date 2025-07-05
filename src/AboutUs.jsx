@@ -1,38 +1,40 @@
 import React from 'react';
-import './aboutus.css'; // Make sure to import your CSS for styling
+import './AboutUs.css';
 
-function AboutUs() {
+const AboutUs = () => {
+  const cards = [
+    {
+      title: "OUR STORY",
+      text: "We began with a passion for innovation and a desire to make a difference. From our humble beginnings, we’ve grown with integrity and purpose.",
+    },
+    {
+      title: "OUR TEAM",
+      text: "Our team is made up of professionals dedicated to excellence. We value collaboration, creativity, and commitment in everything we do.",
+    },
+    {
+      title: "OUR HISTORY",
+      text: "Over the years, we’ve reached major milestones and helped countless clients achieve success through our consistent quality and innovation.",
+    },
+    {
+      title: "OUR FUTURE",
+      text: "Looking ahead, we aim to lead with sustainability, embrace new technologies, and continue growing stronger together with our partners.",
+    },
+  ];
+
   return (
     <div className="about-container">
-      <div className="about-header">
-        <h2>About Us</h2>
-        <p className="about-subheading">
-          Your Trusted Online Eco-Basket Partner for Fresh and Quality Products
-        </p>
-      </div>
-      
-      <div className="about-content">
-        <div className="about-text">
-          <p>
-            Welcome to EcoBasket! We are committed to delivering fresh and quality groceries right to your doorstep.
-          </p>
-          <p>
-            Our mission is to make grocery shopping convenient, affordable, and fast. We offer a wide range of vegetables, fruits, dairy products, packaged goods, and more.
-          </p>
-          <p>
-            With a strong delivery network and user-friendly platform, we ensure you get what you need with just a few clicks.
-          </p>
-          <p>
-            Thank you for choosing us. We look forward to serving you!
-          </p>
-        </div>
-
-        <div className="about-image">
-          <img src="/images/about-us-image.jpg" alt="Fresh groceries" />
-        </div>
+      <h1 className="about-title">ABOUT US</h1>
+      <div className="about-hero"></div>
+      <div className="card-container">
+        {cards.map((card, index) => (
+          <div key={index} className="about-card">
+            <h2>{card.title}</h2>
+            <p>{card.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
 
 export default AboutUs;

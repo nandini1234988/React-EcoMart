@@ -1,88 +1,74 @@
+/* Milk Section */
 .milk-section {
   padding: 20px;
-  padding-top: 80px; /* Adjust as per navbar height */
+  padding-top: 80px; /* Adjust based on your navbar height */
   background-color: #f9f9f9;
 }
 
-  
-  .milk-section h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .milk-scroll-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: flex-start;
-    padding-bottom: 10px;
-  }
-  
-  .milk-card {
-    flex: 0 0 calc(20% - 16px);
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 16px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.2s;
-    box-sizing: border-box;
-  }
-  
-  .milk-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .milk-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 6px;
-  }
-  
-  .milk-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #333;
-  }
-  
-  .milk-price {
-    font-size: 1rem;
-    color: #27ae60;
-    margin-top: 5px;
-  }
-  
-  /* Responsive styles */
-  @media (max-width: 1200px) {
-    .milk-card {
-      flex: 0 0 calc(20% - 16px);
-    }
-  }
-  
-  @media (max-width: 900px) {
-    .milk-card {
-      flex: 0 0 calc(33.33% - 16px);
-    }
-  }
-  
-  @media (max-width: 600px) {
-    .milk-card {
-      flex: 0 0 calc(50% - 16px);
-    }
-  }
-  
-  @media (max-width: 400px) {
-    .milk-card {
-      flex: 0 0 100%;
-    }
-  }
-  
-  /* Button Style for Dairy Products */
+.milk-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Layout: Similar to veg-content */
+.milk-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Cards container */
+.milk-scroll-container {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 10px;
+}
+
+/* Each Milk card (same structure as veg-card) */
+.milk-card {
+  flex: 0 0 calc(20% - 16px);
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+  box-sizing: border-box;
+}
+
+.milk-card:hover {
+  transform: translateY(-5px);
+}
+
+.milk-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.milk-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #333;
+}
+
+.milk-price {
+  font-size: 1rem;
+  color: #27ae60;
+  margin-top: 5px;
+}
+
+/* Button for Add to Cart */
 .milk-card button {
   padding: 10px 20px;
-  background-color: #3498db;   /* Fresh, inviting blue */
+  background-color: #3498db; /* Dairy blue */
   color: white;
   border: none;
   border-radius: 6px;
@@ -93,6 +79,93 @@
 }
 
 .milk-card button:hover {
-  background-color: #2980b9;   /* Slightly deeper blue on hover */
-  transform: scale(1.05);      /* Subtle pop to draw the eye */
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+/* Responsive layout */
+@media (max-width: 1200px) {
+  .milk-card {
+    flex: 0 0 calc(20% - 16px);
+  }
+}
+
+@media (max-width: 900px) {
+  .milk-card {
+    flex: 0 0 calc(33.33% - 16px);
+  }
+}
+
+@media (max-width: 600px) {
+  .milk-card {
+    flex: 0 0 calc(50% - 16px);
+  }
+}
+
+@media (max-width: 400px) {
+  .milk-card {
+    flex: 0 0 100%;
+  }
+}
+
+/* Pagination controls */
+.pagination-controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination-controls button {
+  padding: 6px 12px;
+  margin: 0 5px;
+  border: none;
+  background-color: #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+/* Filter section (similar style, dairy theme) */
+.filter-section {
+  width: 220px;
+  background-color: #e3f2fd; /* Light blue background */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section h4 {
+  margin-bottom: 10px;
+  color: #0d47a1;
+}
+
+.filter-section label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.filter-section input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+.filter-section button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007bff; /* Blue */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.filter-section button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
 }

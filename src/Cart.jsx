@@ -1,48 +1,114 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addOrder, clearCart, DecrementItem, IncrementItem, RemoveFromCart } from './store';
+import {
+  addOrder,
+  clearCart,
+  DecrementItem,
+  IncrementItem,
+  RemoveFromCart,
+} from './store';
 import emailjs from '@emailjs/browser';
 import './cart.css';
 import QRCode from 'react-qr-code';
 import { useNavigate } from 'react-router-dom';
+import Confetti from 'react-confetti'; // 🎉 NEW IMPORT
 
 function Cart() {
-  const cartObjects = useSelector((state) => state.cart);  // Ensure this is mapped correctly
-  const totalCartCount = cartObjects.reduce((totalsum, item) => totalsum + item.quantity, 0);
+  const cartObjects = useSelector((state) => state.cart);
+  const totalCartCount = cartObjects.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [discountPercentage, setDiscountPercentage] = useState(0);
   const [couponCodeDiscountPercentage, setCouponCodeDiscountPercentage] = useState(0);
   const [couponName, setCouponName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [countdown, setCountdown] = useState(10);
+  const [redirectTarget, setRedirectTarget] = useState(null);
+  const [showThankYou, setShowThankYou] = useState(false); // 🎉 NEW STATE
 
   const couponCodeRef = useRef();
   const emailRef = useRef();
-  const [userEmail, setUserEmail] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('');
 
   useEffect(() => {
-    // When cart is cleared, show success alert and reset UI
-    if (cartObjects.length === 0 && paymentMethod !== '') {
-      alert('✅ Order placed successfully!');
-      setPaymentMethod('');  // Reset the payment method
-      setDiscountPercentage(0); // Reset discount
-      setCouponCodeDiscountPercentage(0); // Reset coupon
-      setCouponName('');  // Reset coupon name
-      setUserEmail(''); // Reset user email
+    let timer;
+    if (redirectTarget) {
+      timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            navigate(`/${redirectTarget}`);
+          }
+          return prev - 1;
+        });
+      }, 1000);
     }
-  }, [cartObjects, paymentMethod]);
+    return () => clearInterval(timer);
+  }, [redirectTarget, navigate]);
 
-  // ✅ STEP 1: Validate email before proceeding
+  const calculatingAmount = () => {
+    let totalPrice = cartObjects.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    const discountAmount = (totalPrice * discountPercentage) / 100;
+    const couponDiscountAmount = (totalPrice * couponCodeDiscountPercentage) / 100;
+    const priceAfterDiscount = totalPrice - discountAmount - couponDiscountAmount;
+    const taxAmount = (priceAfterDiscount * 5) / 100;
+    const finalPrice = priceAfterDiscount + taxAmount;
+    return {
+      totalPrice,
+      discountAmount,
+      couponDiscountAmount,
+      taxAmount,
+      finalPrice,
+    };
+  };
+
+  const {
+    totalPrice,
+    discountAmount,
+    couponDiscountAmount,
+    taxAmount,
+    finalPrice,
+  } = calculatingAmount();
+
+  const handleCouponPercentage = () => {
+    const code = couponCodeRef.current.value.trim().toUpperCase();
+    setCouponName(code);
+    switch (code) {
+      case 'NANDINI10':
+        setCouponCodeDiscountPercentage(10);
+        break;
+      case 'NANDINI20':
+        setCouponCodeDiscountPercentage(20);
+        break;
+      case 'NANDINI30':
+        setCouponCodeDiscountPercentage(30);
+        break;
+      default:
+        alert('Invalid Coupon Code');
+        setCouponCodeDiscountPercentage(0);
+    }
+  };
+
   const handleCompletePurchase = () => {
+    if (cartObjects.length === 0) {
+      setRedirectTarget('veg');
+      return;
+    }
+
     if (!userEmail.trim()) {
       alert('❌ Please enter your email.');
       return;
     }
 
     const purchaseDate = new Date().toLocaleString();
-    const { finalPrice, taxAmount } = calculatingAmount();
-
     const purchaseDetails = {
       id: Date.now(),
       date: purchaseDate,
@@ -67,158 +133,133 @@ function Cart() {
     };
 
     emailjs
-      .send('service_jrqdmld', 'template_e0ald1h', templateParams, 'BzWBxTZkuwUTPflZZ')
+      .send(
+        'service_jrqdmld',
+        'template_e0ald1h',
+        templateParams,
+        'BzWBxTZkuwUTPflZZ'
+      )
       .then(() => console.log('✅ Email sent successfully'))
       .catch((error) => console.error('❌ Email sending failed:', error));
 
-    console.log('Purchased:', purchaseDetails);
-
     dispatch(addOrder(purchaseDetails));
-    dispatch(clearCart()); // Clear cart after order
-     
-   setTimeout(() => {
-   alert('✅ Order placed successfully!');
-   navigate('/orders');
-   }, 300); 
-};
+    dispatch(clearCart());
+
+    setShowThankYou(true); // 🎉 Show confetti & message
+    setRedirectTarget('orders');
+    setCountdown(5);
+  };
 
   const cartListItems = cartObjects.map((item, index) => (
-    <li key={index}>
-      Name: {item.name} - Price: ₹{item.price} - Quantity: {item.quantity}
-      <button onClick={() => dispatch(IncrementItem(item))}>+</button>
-      <button onClick={() => dispatch(DecrementItem(item))}>-</button>
-      <button onClick={() => dispatch(RemoveFromCart(item))}>Remove</button>
+    <li key={index} className="cart-item">
+      <div className="item-details">
+        <span><strong>Name:</strong> {item.name}</span>
+        <span><strong>Price:</strong> ₹{item.price}</span>
+      </div>
+      <div className="quantity-control">
+        <button onClick={() => dispatch(IncrementItem(item))}>+</button>
+        <span className="qty-display">{item.quantity}</span>
+        <button onClick={() => dispatch(DecrementItem(item))}>-</button>
+        <button className="remove-btn" onClick={() => dispatch(RemoveFromCart(item))}>
+          Remove
+        </button>
+      </div>
     </li>
   ));
 
-  const handleCouponPercentage = () => {
-    const couponCode = couponCodeRef.current.value.trim().toUpperCase();
-    setCouponName(couponCode);
-
-    switch (couponCode) {
-      case 'NANDINI10':
-        setCouponCodeDiscountPercentage(10);
-        break;
-      case 'NANDINI20':
-        setCouponCodeDiscountPercentage(20);
-        break;
-      case 'NANDINI30':
-        setCouponCodeDiscountPercentage(30);
-        break;
-      default:
-        alert('Invalid Coupon Code');
-        setCouponCodeDiscountPercentage(0);
-    }
-  };
-
-  const calculatingAmount = () => {
-    let totalPrice = cartObjects.reduce(
-      (totalPrice, item) => totalPrice + item.price * item.quantity,
-      0
-    );
-    const discountAmount = (totalPrice * discountPercentage) / 100;
-    const couponDiscountAmount = (totalPrice * couponCodeDiscountPercentage) / 100;
-    let priceAfterDiscount = totalPrice - discountAmount - couponDiscountAmount;
-    const taxAmount = (priceAfterDiscount * 5) / 100;
-    let finalPrice = priceAfterDiscount + taxAmount;
-    return { totalPrice, discountAmount, couponDiscountAmount, taxAmount, finalPrice };
-  };
-
-  const { totalPrice, discountAmount, couponDiscountAmount, taxAmount, finalPrice } = calculatingAmount();
-
   return (
     <div className="cart-container">
-      <h2> 🛒 Cart items will Displayed </h2>
-      {cartObjects.length === 0 ? (
-        <h2> CART is Empty.</h2>
-      ) : (
-        <ul>{cartListItems}</ul>
+      {/* 🎉 Confetti + Thank You */}
+      {redirectTarget && showThankYou && (
+        <div className="thank-you-message">
+          <Confetti width={window.innerWidth} height={window.innerHeight} />
+          <h2>🎉 Thank you! Your order has been placed successfully.</h2>
+          <p>Redirecting to <strong>/{redirectTarget}</strong> in <strong>{countdown}</strong> seconds...</p>
+        </div>
       )}
 
-      <h3>Total Items in Cart: {totalCartCount}</h3>
+      {/* Empty Cart */}
+      {!redirectTarget && cartObjects.length === 0 && (
+        <div className="empty-msg">🛒 <span>Cart is Empty.</span></div>
+      )}
 
-      <div className="discount-buttons">
-        <button onClick={() => setDiscountPercentage(10)}>Apply 10% Discount</button>
-        <button onClick={() => setDiscountPercentage(20)}>Apply 20% Discount</button>
-        <button onClick={() => setDiscountPercentage(30)}>Apply 30% Discount</button>
-      </div>
+      {/* Cart Content */}
+      {!redirectTarget && cartObjects.length > 0 && (
+        <>
+          <ul>{cartListItems}</ul>
+          <h3>Total Items in Cart: {totalCartCount}</h3>
 
-      <div className="totals">
-        <h4>💰 Your total Amount: ₹{totalPrice.toFixed(2)}</h4>
-
-        <input type="text" ref={couponCodeRef} placeholder="Enter The Code" />
-        <button onClick={handleCouponPercentage}>Apply Coupon</button>
-
-        <h4>🏷️ Your Discount Amount: ₹{discountAmount.toFixed(2)}</h4>
-        <h4>🎁 Applied Coupon ({couponName}) Amount: ₹{couponDiscountAmount.toFixed(2)}</h4>
-        <h4>📄 Your Tax Amount: ₹{taxAmount.toFixed(2)}</h4>
-        <h4>💸 Your Final Amount: ₹{finalPrice.toFixed(2)}</h4>
-
-        {/* ✅ Email Input for order confirmation */}
-        <div className="email-box">
-          <label>📩 Enter your Gmail for order confirmation:</label>
-          <input
-            type="email"
-            ref={emailRef}
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-            placeholder="you@example.com"
-            required
-          />
-        </div>
-
-        <div className="payment-method">
-          <h3>💰 Select Payment Method:</h3>
-          <div className="payment-buttons">
-            <button className="qr-btn" onClick={() => setPaymentMethod('qr')}>📱 QR Code</button>
-            <button className="card-btn" onClick={() => setPaymentMethod('card')}>💳 Card</button>
+          <div className="discount-buttons">
+            <button onClick={() => setDiscountPercentage(10)}>Apply 10% Discount</button>
+            <button onClick={() => setDiscountPercentage(20)}>Apply 20% Discount</button>
+            <button onClick={() => setDiscountPercentage(30)}>Apply 30% Discount</button>
           </div>
-        </div>
 
-        {paymentMethod === 'qr' && (
-          <div className="qr-section">
-            <h4>📷 Scan UPI QR to Pay ₹{finalPrice.toFixed(2)}</h4>
-            <QRCode
-              value={`upi://pay?pa=9848326168@ibl&pn=YourStoreName&am=${finalPrice.toFixed(2)}&cu=INR`}
-            />
-            <p>UPI ID: 9848326168@ibl</p>
-          </div>
-        )}
+          <div className="totals">
+            <h4>💰 Total: ₹{totalPrice.toFixed(2)}</h4>
+            <input type="text" ref={couponCodeRef} placeholder="Enter Coupon" />
+            <button onClick={handleCouponPercentage}>Apply Coupon</button>
+            <h4>🏷️ Discount: ₹{discountAmount.toFixed(2)}</h4>
+            <h4>🎁 Coupon ({couponName}): ₹{couponDiscountAmount.toFixed(2)}</h4>
+            <h4>📄 Tax: ₹{taxAmount.toFixed(2)}</h4>
+            <h4>💸 Final: ₹{finalPrice.toFixed(2)}</h4>
 
-        {paymentMethod === 'card' && (
-          <div className="card-section">
-            <h4>💳 Enter Card Details</h4>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert('✅ Card payment processed successfully!');
-              }}
+            <div className="email-box">
+              <label>📩 Email for Order Confirmation:</label>
+              <input
+                type="email"
+                ref={emailRef}
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <div className="payment-method">
+              <h3>💰 Choose Payment Method:</h3>
+              <button onClick={() => setPaymentMethod('qr')}>📱 QR Code</button>
+              <button onClick={() => setPaymentMethod('card')}>💳 Card</button>
+            </div>
+
+            {paymentMethod === 'qr' && (
+              <div className="qr-section">
+                <h4>📷 Scan to Pay ₹{finalPrice.toFixed(2)}</h4>
+                <QRCode
+                  value={`upi://pay?pa=9848326168@ibl&pn=YourStoreName&am=${finalPrice.toFixed(2)}&cu=INR`}
+                />
+                <p>UPI ID: 9848326168@ibl</p>
+              </div>
+            )}
+
+            {paymentMethod === 'card' && (
+              <div className="card-section">
+                <h4>💳 Card Payment</h4>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    alert('✅ Card payment processed!');
+                  }}
+                >
+                  <div><label>Card Number:</label><input type="text" placeholder="1234 5678 9101 1234" required /></div>
+                  <div><label>Cardholder Name:</label><input type="text" placeholder="Annamgari Nandini" required /></div>
+                  <div><label>Expiry Date:</label><input type="text" placeholder="MM/YY" required /></div>
+                  <div><label>CVV:</label><input type="password" placeholder="123" required /></div>
+                  <button type="submit">💳 Pay ₹{finalPrice.toFixed(2)}</button>
+                </form>
+              </div>
+            )}
+
+            <button
+              className="purchase-btn"
+              onClick={handleCompletePurchase}
+              disabled={showThankYou}
+              style={{ color: 'green', background: 'lightpink' }}
             >
-              <div>
-                <label>Card Number: </label>
-                <input type="text" placeholder="1234 5678 9101 1234" required />
-              </div>
-              <div>
-                <label>Cardholder Name: </label>
-                <input type="text" placeholder="Annamgari Nandini" required />
-              </div>
-              <div>
-                <label>Expiry Date: </label>
-                <input type="text" placeholder="MM/YY" required />
-              </div>
-              <div>
-                <label>CVV: </label>
-                <input type="password" placeholder="123" required />
-              </div>
-              <button type="submit">💳 Pay ₹{finalPrice.toFixed(2)}</button>
-            </form>
+              {showThankYou ? 'Processing...' : 'Purchase'}
+            </button>
           </div>
-        )}
-
-        <button className="purchase-btn" onClick={handleCompletePurchase} style={{ color: 'green', background: 'lightpink' }}>
-          Purchase
-        </button>
-      </div>
+        </>
+      )}
     </div>
   );
 }

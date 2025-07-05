@@ -2,41 +2,83 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './nonVeg.css';
 import { AddToCart } from './store';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function NonVeg() {
   const nonVegList = useSelector((globalState) => globalState.products.NonVeg);
   const dispatch = useDispatch();
 
-  // ✅ Price filter using slider
-  const maxAvailablePrice = Math.max(...nonVegList.map((item) => item.price));
-  const [maxPrice, setMaxPrice] = useState(maxAvailablePrice);
+  // Price Range Filters
+  const priceRanges = [
+    { value: 'Rs 1 to Rs 50', min: 1, max: 50 },
+    { value: 'Rs 51 to Rs 100', min: 51, max: 100 },
+    { value: 'Rs 101 to Rs 200', min: 101, max: 200 },
+    { value: 'Rs 201 to Rs 500', min: 201, max: 500 },
+    { value: 'more than Rs 500', min: 501, max: Infinity },
+  ];
+  const [selectedRanges, setSelectedRanges] = useState([]);
 
-  const handleSliderChange = (e) => {
-    setMaxPrice(Number(e.target.value));
-    setCurrentPage(1); // reset to page 1 when filtering
+  const handleCheckboxChange = (rangeValue) => {
+    if (selectedRanges.includes(rangeValue)) {
+      setSelectedRanges(selectedRanges.filter((r) => r !== rangeValue));
+    } else {
+      setSelectedRanges([...selectedRanges, rangeValue]);
+    }
+    setCurrentPage(1);
   };
 
-  const filteredList = nonVegList.filter((item) => item.price <= maxPrice);
+  const clearAll = () => {
+    setSelectedRanges([]);
+  };
 
-  // ✅ Pagination logic
+  const activeRanges = priceRanges.filter((range) =>
+    selectedRanges.includes(range.value)
+  );
+
+  const filteredNonVegList =
+    selectedRanges.length === 0
+      ? nonVegList
+      : nonVegList.filter((item) =>
+          activeRanges.some(
+            (range) => item.price >= range.min && item.price <= range.max
+          )
+        );
+
+  // Pagination
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredList.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredList.length / itemsPerPage);
+  const currentItems = filteredNonVegList.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredNonVegList.length / itemsPerPage);
 
   const goToPage = (page) => {
     setCurrentPage(page);
   };
 
-  // ✅ List of cards
+  // Cards
   const nonVegCards = currentItems.map((item, index) => (
     <div className="nonveg-card" key={index}>
       <img src={`/images/${item.image}`} alt={item.name} />
       <div className="nonveg-name">{item.name}</div>
       <div className="nonveg-price">₹{item.price.toFixed(2)}</div>
-      <button onClick={() => dispatch(AddToCart(item))}>Add to Cart</button>
+      <button
+        onClick={() => {
+          dispatch(AddToCart(item));
+          toast.success(`${item.name} added to cart!`, {
+            position: 'top-right',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        }}
+      >
+        Add to Cart
+      </button>
     </div>
   ));
 
@@ -44,34 +86,32 @@ function NonVeg() {
     <div className="nonveg-section">
       <h2>Fresh Non-Veg Items</h2>
 
-      {/* ✅ Slider Filter */}
-      <div className="slider-filter">
-        <label htmlFor="priceSlider">
-          Filter by Max Price: ₹{maxPrice}
-        </label>
-        <input
-          type="range"
-          id="priceSlider"
-          min="0"
-          max={maxAvailablePrice}
-          step="1"
-          value={maxPrice}
-          onChange={handleSliderChange}
-          style={{ width: '100%', marginTop: '10px' }}
-        />
+      <div className="nonveg-content">
+        {/* Cards */}
+        <div className="nonveg-scroll-container">
+          {nonVegCards.length > 0 ? nonVegCards : <p>No non-veg items in this price range.</p>}
+        </div>
+
+        {/* Filter UI */}
+        <div className="filter-section">
+          <h4> Price Ranges</h4>
+          {priceRanges.map((range) => (
+            <label key={range.value} style={{ display: 'block' }}>
+              <input
+                type="checkbox"
+                checked={selectedRanges.includes(range.value)}
+                onChange={() => handleCheckboxChange(range.value)}
+              />
+              {range.value}
+            </label>
+          ))}
+          <button onClick={clearAll}>Clear All</button>
+        </div>
       </div>
 
-      {/* ✅ Cards */}
-      <div className="nonveg-scroll-container">
-        {nonVegCards.length > 0 ? nonVegCards : <p>No items under ₹{maxPrice}</p>}
-      </div>
-
-      {/* ✅ Pagination Controls */}
+      {/* Pagination */}
       <div className="pagination-controls">
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
+        <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
           Previous
         </button>
 
@@ -88,13 +128,12 @@ function NonVeg() {
           </button>
         ))}
 
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
+        <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage === totalPages}>
           Next
         </button>
       </div>
+
+      <ToastContainer />
     </div>
   );
 }

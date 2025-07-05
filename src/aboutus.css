@@ -1,81 +1,74 @@
-/* AboutUs.css */
-
-/* General Page Styles */
 .about-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
+  text-align: center;
+  padding: 20px;
+}
+
+.about-title {
+  font-size: 50px;
+  font-weight: bold;
+  color: #ff6b81;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+
+  opacity: 0;
+  transform: translateX(100px);
+  animation: slideInRight 0.6s ease forwards;
+  animation-delay: 0s;
+}
+
+
+.about-hero {
+  background-image: url('https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1470&q=80');
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  
+  opacity: 0;
+  transform: translateX(100px);
+  animation: slideInRight 0.6s ease forwards;
+  animation-delay: 0.1s; /* Starts before cards */
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Animation styles */
+.about-card {
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  color: #333;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+  border-radius: 15px;
+  width: 260px;
+  padding: 25px;
+  text-align: left;
+  opacity: 0;
+  transform: translateX(100px);
+  animation: slideInRight 0.6s ease forwards;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.about-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Staggered animation delay */
+.about-card:nth-child(1) { animation-delay: 0.2s; }
+.about-card:nth-child(2) { animation-delay: 0.4s; }
+.about-card:nth-child(3) { animation-delay: 0.6s; }
+.about-card:nth-child(4) { animation-delay: 0.8s; }
+
+/* Keyframes */
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
-  
-  /* Header Section */
-  .about-header {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .about-header h2 {
-    font-size: 2.5rem;
-    color: #007b5e;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .about-subheading {
-    font-size: 1.2rem;
-    color: #555;
-    font-style: italic;
-  }
-  
-  /* About Content Layout */
-  .about-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 30px;
-  }
-  
-  /* About Text */
-  .about-text {
-    flex: 1;
-    min-width: 280px;
-    line-height: 1.6;
-    font-size: 1rem;
-    color: #555;
-  }
-  
-  .about-text p {
-    margin-bottom: 15px;
-  }
-  
-  /* About Image */
-  .about-image {
-    flex: 1;
-    min-width: 300px;
-    text-align: center;
-  }
-  
-  .about-image img {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    object-fit: cover;
-  }
-  
-  @media (max-width: 768px) {
-    .about-content {
-      flex-direction: column;
-    }
-  
-    .about-text {
-      margin-bottom: 20px;
-    }
-  
-    .about-image img {
-      max-width: 100%;
-    }
-  }
-  
+}

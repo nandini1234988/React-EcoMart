@@ -185,6 +185,7 @@ const store = configureStore({
 store.subscribe(() =>{
   const state = store.getState();
   localStorage.setItem("Cart",JSON.stringify(state.cart));
+  
 });
 
 //export actions//

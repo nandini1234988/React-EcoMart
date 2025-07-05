@@ -1,0 +1,74 @@
+.auth-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.auth-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form input,
+.auth-form select {
+  padding: 12px;
+  margin: 10px 0;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+/* 🔵 Highlight input border on focus */
+.auth-form input:focus,
+.auth-form select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+/* 📻 Radio button group */
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.auth-form button {
+  padding: 12px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.auth-form button:hover {
+  background-color: #218838;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.auth-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}

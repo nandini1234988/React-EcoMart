@@ -1,57 +1,75 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import './ContactUs.css';
 
-function ContactUs() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+export default function ContactUs() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    email: '',
+    message: '',
+  });
+
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle the form submission (e.g., send the data to the server)
-    console.log('Contact form submitted:', { name, email, message });
+
+    // Add your logic here: e.g., send to server or show a success message
+    console.log('Form submitted:', formData);
+    setSubmitted(true);
+
+    // Clear the form
+    setFormData({
+      firstName: '',
+      email: '',
+      message: '',
+    });
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Contact Us</h2>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="name">Name: </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="email">Email: </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="message">Message: </label>
-          <textarea
-            id="message"
-            name="message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
-            rows="4"
-          />
-        </div>
-        <button type="submit">Send Message</button>
+    <div className="contact-container">
+      <div className="contact-left">
+        <h1>Contact EcoMart</h1>
+        <p>
+          Get in touch with us for inquiries about our fresh grocery items and online delivery services. We're here to help you!
+        </p>
+        {submitted && <p className="success-message">Thank you! Your message has been sent.</p>}
+      </div>
+
+      <form className="contact-form" onSubmit={handleSubmit}>
+        <label>Your First Name</label>
+        <input
+          type="text"
+          name="firstName"
+          placeholder="Enter your first name"
+          value={formData.firstName}
+          onChange={handleChange}
+        />
+
+        <label>Your Email Address<span className="required">*</span></label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email address"
+          required
+          value={formData.email}
+          onChange={handleChange}
+        />
+
+        <label>Your Message<span className="required">*</span></label>
+        <textarea
+          name="message"
+          placeholder="Type your message here"
+          required
+          value={formData.message}
+          onChange={handleChange}
+        />
+
+        <button type="submit">Submit Your Inquiry</button>
       </form>
     </div>
   );
 }
-
-export default ContactUs;

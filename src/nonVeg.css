@@ -1,7 +1,7 @@
 /* Non-Veg Section */
 .nonveg-section {
   padding: 20px;
-  padding-top: 80px; /* Match your navbar height */
+  padding-top: 80px;
   background-color: #f9f9f9;
 }
 
@@ -11,18 +11,26 @@
   color: #2c3e50;
 }
 
-/* Horizontal scrolling container */
+/* Layout */
+.nonveg-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Cards Container */
 .nonveg-scroll-container {
+  flex: 1;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  justify-content: flex-start;
-  padding-bottom: 10px;
 }
 
-/* Each non-veg card */
+/* Card */
 .nonveg-card {
-  flex: 0 0 calc(20% - 16px); 
+  flex: 0 0 calc(20% - 16px);
   background-color: #fff;
   border-radius: 10px;
   padding: 16px;
@@ -56,10 +64,10 @@
   margin-top: 5px;
 }
 
-/* Button Style for Non-Veg */
+/* Button */
 .nonveg-card button {
   padding: 10px 20px;
-  background-color: #28a745;   /* Same bright green as Veg */
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 6px;
@@ -70,58 +78,45 @@
 }
 
 .nonveg-card button:hover {
-  background-color: #218838;   /* Darker green on hover */
+  background-color: #218838;
   transform: scale(1.05);
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .nonveg-card {
-      flex: 0 0 calc(20% - 16px);
-  }
+/* Filter Section */
+.filter-section {
+  width: 220px;
+  background-color: #e74c3c; /* Red-ish tone for non-veg */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 900px) {
-  .nonveg-card {
-      flex: 0 0 calc(33.33% - 16px);
-  }
+.filter-section h4 {
+  color: white;
 }
 
-@media (max-width: 600px) {
-  .nonveg-card {
-      flex: 0 0 calc(50% - 16px);
-  }
+.filter-section label {
+  color: white;
 }
 
-@media (max-width: 400px) {
-  .nonveg-card {
-      flex: 0 0 100%;
-  }
+.filter-section button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
+.filter-section button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Pagination */
 .pagination-controls {
   margin-top: 20px;
-  text-align: center;
 }
-
-.pagination-controls button {
-  padding: 6px 12px;
-  margin: 0 5px;
-  border: none;
-  background-color: #ddd;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.pagination-controls button:disabled {
-  background-color: #bbb;
-  cursor: not-allowed;
-}
-
-.slider-filter {
-  margin: 20px 0;
-  background-color: #f2f2f2;
-  padding: 10px;
-  border-radius: 6px;
-}
-
-

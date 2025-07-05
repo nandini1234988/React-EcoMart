@@ -4,6 +4,8 @@ import {
   FaHome, FaLeaf, FaDrumstickBite, FaGlassWhiskey, FaCandyCane,
   FaShoppingCart, FaBox, FaInfoCircle, FaPhoneAlt, FaSignInAlt,
 } from 'react-icons/fa';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 
 
@@ -45,11 +47,11 @@ function App() {
           <Link to="/Chocolates" className="navbar-link"><FaCandyCane className="icon" /> Chocolates</Link>
           <Link to="/Cart" className="navbar-link"><FaShoppingCart className="icon" /> Cart({cartCount})</Link>
           <Link to="/Orders" className="navbar-link"><FaBox className="icon" /> Orders</Link>
-          <Link to="/AboutUs" className="navbar-link"><FaInfoCircle className="icon" /> About</Link>
-          <Link to="/ContactUs" className="navbar-link"><FaPhoneAlt className="icon" /> Contact</Link>
+          <Link to="/AboutUs" className="navbar-link"><FaInfoCircle className="icon" /> AboutUs</Link>
+          <Link to="/ContactUs" className="navbar-link"><FaPhoneAlt className="icon" /> ContactUs</Link>
           {isAuthenticated?(
             <div>
-              <span>Welcome,{currentUser.username}</span>
+              <span style={{ color: 'pink', fontWeight: 'bold' }}>Welcome,{currentUser.username}</span>
               <button onClick={()=>dispatch(logOut())}>Log Out</button>
               </div>
           ):(
