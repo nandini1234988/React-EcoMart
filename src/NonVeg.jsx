@@ -60,7 +60,11 @@ function NonVeg() {
   // Cards
   const nonVegCards = currentItems.map((item, index) => (
     <div className="nonveg-card" key={index}>
-      <img src={`/images/${item.image}`} alt={item.name} />
+      <img
+  src={import.meta.env.BASE_URL + 'images/' + item.image}
+  alt={item.name}
+/>
+
       <div className="nonveg-name">{item.name}</div>
       <div className="nonveg-price">₹{item.price.toFixed(2)}</div>
       <button

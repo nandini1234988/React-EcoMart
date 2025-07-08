@@ -54,7 +54,11 @@ function Chocolates() {
 
   const chocolateCards = currentItems.map((item, index) => (
     <div className="choco-card" key={index}>
-      <img src={`/images/${item.image}`} alt={item.name} />
+     <img
+  src={import.meta.env.BASE_URL + 'images/' + item.image}
+  alt={item.name}
+/>
+
       <div className="choco-name">{item.name}</div>
       <div className="choco-price">₹{item.price.toFixed(2)}</div>
       <button

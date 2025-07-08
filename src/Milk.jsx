@@ -61,7 +61,11 @@ function Milk() {
   // Create milk cards
   const milkCards = currentItems.map((item, index) => (
     <div className="milk-card" key={index}>
-      <img src={`/images/${item.image}`} alt={item.name} />
+     <img
+  src={import.meta.env.BASE_URL + 'images/' + item.image}
+  alt={item.name}
+/>
+
       <div className="milk-name">{item.name}</div>
       <div className="milk-price">₹{item.price.toFixed(2)}</div>
       <button

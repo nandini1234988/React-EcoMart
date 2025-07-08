@@ -26,7 +26,7 @@ html, body {
   justify-content: space-between;
   align-items: center;
   padding: 60px 40px;
-  background-color: hsl(283, 61%, 78%);
+  background-color: hsl(292, 38%, 68%);
   flex-wrap: wrap;
   width: 100vw;
 }
@@ -89,7 +89,7 @@ html, body {
 
 /* Reasons Section */
 .reasons-section {
-  background-color: lightcyan;
+  background-color: rgb(188, 210, 150);
   text-align: center;
   padding: 60px 5%;
 }
@@ -110,7 +110,7 @@ html, body {
 .reason-card {
   width: 200px;
   padding: 20px;
-  background-color: lightskyblue;
+  background-color: rgb(32, 28, 49);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease;

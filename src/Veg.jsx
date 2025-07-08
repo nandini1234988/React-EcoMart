@@ -61,7 +61,10 @@ function Veg() {
   // Create vegetable cards
   const vegCards = currentItems.map((item, index) => (
     <div className="veg-card" key={index}>
-      <img src={`/images/${item.image}`} alt={item.name} />
+       <img
+      src={import.meta.env.BASE_URL + 'images/' + item.image}
+      alt={item.name}
+    />
       <div className="veg-name">{item.name}</div>
       <div className="veg-price">₹{item.price.toFixed(2)}</div>
       <button
