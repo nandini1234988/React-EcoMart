@@ -1,145 +1,135 @@
-/* Reset & General */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* prevent horizontal scroll */
-}
-
-.home-page {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f9f9f9;
-  color: #222;
-  width: 100vw;      /* full viewport width */
-  overflow-x: hidden;
-}
-
-/* Hero Section */
-.hero-section {
+.home-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 60px 40px;
-  background-color: hsl(292, 38%, 68%);
-  flex-wrap: wrap;
-  width: 100vw;
+  padding: 0 20px;
+  gap: 60px;
 }
 
-.hero-text {
-  flex: 1;
-  min-width: 300px;
-}
-
-.hero-text h1 {
-  font-size: 3rem;
-  color: #2e7d32;
-  margin-bottom: 20px;
-}
-
-.hero-text p {
-  font-size: 1.3rem;
-  color: hsl(65, 47%, 74%);
-}
-
-/* Slide In Animation */
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0%);
-    opacity: 1;
-  }
-}
-
-.slide-in-right {
-  animation: slideInRight 1s ease-out forwards;
-}
-
-/* Hero Image */
-.hero-image {
-  flex: 1;
-  min-width: 300px;
-  display: flex;
-  justify-content: center;
-}
-
-.hero-image img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  animation: fadeIn 1.2s ease-out;
-}
-
-/* Fade In Animation for Image */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Reasons Section */
-.reasons-section {
-  background-color: rgb(188, 210, 150);
+.hero-section {
+  background-color: #f3f7fb;
+  padding: 80px 20px 40px;
   text-align: center;
-  padding: 60px 5%;
 }
 
-.reasons-section h2 {
-  font-size: 2.2rem;
-  color: #a0b624;
-  margin-bottom: 40px;
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.reasons-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
+.slick-slide > div {
+  min-height: 200px;  /* ensures slides are tall enough */
+  padding: 20px 0;
 }
 
-.reason-card {
-  width: 200px;
-  padding: 20px;
-  background-color: rgb(32, 28, 49);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
+.slick-slide h1 {
+  font-size: 2.8rem;
+  color: #b23b3b;
+  margin-bottom: 10px;
 }
 
-.reason-card:hover {
-  transform: translateY(-8px);
-}
-
-.emoji {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-}
-
-.reason-card h3 {
-  color: whitesmoke;
+.slick-slide p {
   font-size: 1.2rem;
-  margin-bottom: 8px;
+  color: #444;
 }
 
-.reason-card p {
-  color: darkolivegreen;
-  font-size: 0.95rem;
+.shop-btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 28px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 8px;
 }
 
-/* Optional Carousel Wrapper (in case you use in future) */
-.hero-carousel {
-  position: relative;
-  width: 100vw;
-  max-height: 500px;
-  overflow: hidden;
+
+/* Highlight Section */
+.highlight-section {
+  width: 100%;
+  text-align: center;
+}
+
+.highlight-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.highlight-card {
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 16px;
+  width: 250px;
+  text-align: center;
+}
+
+.highlight-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Features Section */
+.features-section {
+  width: 100%;
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #685ea0;
+  border-radius: 10px;
+  
+}
+
+.features-section ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.features-section li {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+/* CTA Section */
+.cta-section {
+  width: 100%;
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #a7e88d;
+  border-radius: 10px;
+}
+
+.secondary-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  margin-top: 60px;
+  border-radius: 10px 10px 0 0;
+}
+.hero-content p {
+  margin-bottom: 30px;
+}
+
+.shop-btn {
+  margin-top: 20px; /* Optional - keep existing or adjust */
 }

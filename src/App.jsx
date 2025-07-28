@@ -31,6 +31,7 @@ function App() {
     <BrowserRouter basename="/React-EcoMart">
       <nav className="navbar">
         <div className="navbar-links">
+          
           <Link to="/" className="navbar-link"><FaHome className="icon" /> Home</Link>
           <Link to="/Veg" className="navbar-link"><FaLeaf className="icon" /> Veg</Link>
           <Link to="/NonVeg" className="navbar-link"><FaDrumstickBite className="icon" /> Non-Veg</Link>
@@ -53,6 +54,7 @@ function App() {
 
       <div className="main-content">
         <Routes>
+         
           <Route path="/" element={<Home />} />
           <Route path="/Veg" element={<Veg />} />
           <Route path="/NonVeg" element={<NonVeg />} />

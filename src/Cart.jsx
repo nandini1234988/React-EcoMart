@@ -180,8 +180,16 @@ function Cart() {
 
       {/* Empty Cart */}
       {!redirectTarget && cartObjects.length === 0 && (
-        <div className="empty-msg">🛒 <span>Cart is Empty.</span></div>
-      )}
+  <div className="empty-msg">
+  <img
+  src={`${import.meta.env.BASE_URL}images/empty-cart.jpg`}
+  alt="Empty Cart"
+  className="empty-cart-img"
+  style={{ width: "300px", display: "block", margin: "auto" }}
+/>
+    <span>Cart is Empty.</span>
+  </div>
+)}
 
       {/* Cart Content */}
       {!redirectTarget && cartObjects.length > 0 && (
